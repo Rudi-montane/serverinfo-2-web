@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Serverstatus</title></head>
+<body>
+  <h2>Serverstatus</h2>
+  <p>Hostname: <span id="host"></span></p>
+  <p>CPU: <span id="cpu"></span>%</p>
+  <p>RAM: <span id="ram"></span>%</p>
+  <p>Disk: <span id="disk"></span>%</p>
+  <p>Uptime: <span id="uptime"></span> Sek.</p>
+
+  <script>
+    function updateStatus() {
+      fetch('status.json')
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById('host').innerText = data.hostname;
+          document.getElementById('cpu').innerText = data.cpu;
+          document.getElementById('ram').innerText = data.ram;
+          document.getElementById('disk').innerText = data.disk;
+          document.getElementById('uptime').innerText = data.uptime;
+        });
+    }
+
+    setInterval(updateStatus, 5000);
+    updateStatus();
+  </script>
+</body>
+</html>
